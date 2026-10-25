@@ -1,0 +1,184 @@
+{
+  "name": "lab-maneger",
+  "displayName": "Lab Manager",
+  "publisher": "GRECHA",
+  "description": "Менеджер учебных проектов: группировка по предметам, поиск и быстрое открытие.",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lab-maneger.addProject",
+        "title": "Lab Manager: Добавить проект",
+        "icon": "$(add)"
+      },
+      {
+        "command": "lab-maneger.showProjects",
+        "title": "Lab Manager: Показать проекты",
+        "icon": "$(search)"
+      },
+      {
+        "command": "lab-maneger.openProject",
+        "title": "Lab Manager: Открыть проект"
+      },
+      {
+        "command": "lab-maneger.editProject",
+        "title": "Lab Manager: Изменить название и предмет"
+      },
+      {
+        "command": "lab-maneger.changeProjectPath",
+        "title": "Lab Manager: Изменить путь"
+      },
+      {
+        "command": "lab-maneger.deleteProject",
+        "title": "Lab Manager: Убрать из списка"
+      },
+      {
+        "command": "lab-maneger.refreshProjects",
+        "title": "Lab Manager: Обновить список",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "lab-maneger.changeStatus",
+        "title": "Lab Manager: Изменить статус"
+      },
+      {
+        "command": "lab-maneger.toggleUnsubmitted",
+        "title": "Lab Manager: Все / только несданные",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "lab-maneger.addMaterial",
+        "title": "Lab Manager: Прикрепить материал"
+      },
+      {
+        "command": "lab-maneger.openMaterial",
+        "title": "Lab Manager: Открыть материал"
+      },
+      {
+        "command": "lab-maneger.changeMaterialPath",
+        "title": "Lab Manager: Изменить путь материала"
+      },
+      {
+        "command": "lab-maneger.removeMaterial",
+        "title": "Lab Manager: Открепить материал"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "labManager.projects",
+          "name": "Учебные проекты",
+          "icon": "$(book)"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "labManager.projects",
+        "contents": "Нет видимых проектов. Добавь проект или отключи фильтр несданных.\n[Добавить текущий проект](command:lab-maneger.addProject)\n[Все / только несданные](command:lab-maneger.toggleUnsubmitted)",
+        "when": "view == labManager.projects"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "lab-maneger.addProject",
+          "when": "view == labManager.projects",
+          "group": "navigation@1"
+        },
+        {
+          "command": "lab-maneger.showProjects",
+          "when": "view == labManager.projects",
+          "group": "navigation@2"
+        },
+        {
+          "command": "lab-maneger.refreshProjects",
+          "when": "view == labManager.projects",
+          "group": "navigation@3"
+        },
+        {
+          "command": "lab-maneger.toggleUnsubmitted",
+          "when": "view == labManager.projects",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "lab-maneger.openProject",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@1"
+        },
+        {
+          "command": "lab-maneger.editProject",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@2"
+        },
+        {
+          "command": "lab-maneger.changeProjectPath",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@3"
+        },
+        {
+          "command": "lab-maneger.deleteProject",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@4"
+        },
+        {
+          "command": "lab-maneger.changeStatus",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@6"
+        },
+        {
+          "command": "lab-maneger.addMaterial",
+          "when": "view == labManager.projects && viewItem == labProject",
+          "group": "project@7"
+        },
+        {
+          "command": "lab-maneger.openMaterial",
+          "when": "view == labManager.projects && (viewItem == labMaterialFile || viewItem == labMaterialLink)",
+          "group": "material@1"
+        },
+        {
+          "command": "lab-maneger.removeMaterial",
+          "when": "view == labManager.projects && (viewItem == labMaterialFile || viewItem == labMaterialLink)",
+          "group": "material@2"
+        },
+        {
+          "command": "lab-maneger.changeMaterialPath",
+          "when": "view == labManager.projects && viewItem == labMaterialFile",
+          "group": "material@3"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.140.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "typescript-eslint": "^8.61.1",
+    "eslint": "^10.5.0",
+    "typescript": "^6.0.3",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  }
+}
